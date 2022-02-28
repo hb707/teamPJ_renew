@@ -1,0 +1,15 @@
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="welcome-content">
+    <h2>가입을 환영합니다</h2>
+    <b>입력한 정보를 확인해주세요</b>
+    <ul>
+        <li>아이디 : {{item.userId}}</li>
+        <li>이름 : {{item.userName}}</li>
+        <li>닉네임 : {{item.nickname}}</li>
+        <li>성별 : {{item.gender}}</li>
+        <li>핸드폰번호 : {{item.phoneNumber}}</li>
+    </ul>
+    <a href="/">메인으로 돌아가기</a>
+</div>
+{% endblock %}

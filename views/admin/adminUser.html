@@ -1,0 +1,44 @@
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="admin-content">
+    <h2>관리자페이지</h2>
+    <table>
+        <tr class="title">
+            <td class="userId">아이디</td>
+            <td class="userName">이름</td>
+            <td class="nickname">닉네임</td>
+            <td class="level">레벨</td>
+            <td class="select-level">레벨변경</td>
+            <td class="active">이용상태</td>
+            <td class="select-active">이용상태변경</td>
+            <td class="smallBtn">변경</td>
+        </tr>
+        {% for item in list%}
+        <tr id="userList">
+            <form method="post" action="/admin/user">
+                <input type="hidden" name="userId" value="{{item.userId}}">
+                <td class="userId">{{item.userId}}</td>
+                <td class="userName">{{item.userName}}</a></td>
+                <td class="nickname">{{item.nickname}}</td>
+                <td class="level">{{item.level}}</td>
+                <td>
+                    <select name="level" id="select-level">
+                        <option value selected value={{item.level}}>레벨변경</option>
+                        <option value=3>최고관리자(3)</option>
+                        <option value=2>관리자(2)</option>
+                        <option value=1>회원(1)</option>
+                    </select>
+                </td>
+                <td class="active">{% if item.active %}이용가능회원 {% else %}이용중지{% endif %}</td>
+                <td class="select-active">
+                    <p><label><input type="radio" name="active" value="1" checked>이용가능</label></p>
+                    <p><label><input type="radio" name="active" value="0">중지</label></p>
+                </td>
+                <td><input class="smallBtn" type="submit" value="변경하기">
+                </td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

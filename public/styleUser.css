@@ -1,0 +1,231 @@
+/* 로그인 */
+
+
+#login-content {
+    height: 100vh;
+    width: 100vw;
+    padding: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: #000084;
+    z-index: 1;
+}
+
+#login-content > h2 {
+    font-size : 50px;
+    color: #ffffff;
+    padding: 2vw;
+    margin: 5vh 0;
+    text-align: center;
+}
+
+#login-content > form {
+    width: 30vw;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#loginSpace > li {
+    width: 300px;
+    height: 50px;
+    border: 2px solid #ffffff;
+    background: #ffffff;
+    border-radius: 10px;
+    margin: 15px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginSpace > li > input{ 
+    outline-style: none;
+    border: none;
+    background-color: #ffffff;
+    width: 250px;
+    height: 40px;
+    font-size: 20px;
+}
+
+#login-content > form > #btn {
+    width: 300px;
+    height: 60px;
+    background: #ffffff;
+    font-size: 30px;
+    border: none;
+    border-radius: 10px;
+    color: #000084;
+    margin-top: 20px;
+    font-weight: bolder;
+}
+
+
+
+
+
+
+
+
+
+
+/* 회원가입 */
+
+#join-content {
+    padding: 120px;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #000084;
+    z-index: 1;
+}
+
+#join-content > h2 {
+    font-size : 50px;
+    color: #ffffff;
+    padding: 3vw;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#join-content > form {
+    width: 30vw;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#join-content > form > #btn {
+    width: 300px;
+    height: 60px;
+    background: #ffffff;
+    font-size: 30px;
+    border: none;
+    border-radius: 10px;
+    color: #000084;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+
+#join-menu{
+    width: 500px;
+}
+
+#join-menu > li {
+    width: 100%;
+    padding: 10px;
+    margin: 30px 0;
+}
+
+#join-menu > li > p{
+    color: #ffffff;
+    font-weight: bold;
+}
+ 
+#join-menu > li > .menu-content{
+    width: 500px;
+    height: 50px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(190,190,190, 0.3);
+}
+
+.menu-content > input {
+    outline-style: none;
+    border: none;
+    background-color: rgba(190,190,190, 0);
+    width: 400px;
+    height: 40px;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.menu-content > #select-gender {
+    outline-style: none;
+    border: none;
+    background-color: rgba(190,190,190, 0);
+    width: 400px;
+    height: 40px;
+    font-size: 20px;
+}
+
+
+
+
+/* 환영페이지 */
+
+#welcome-content {
+    padding: 120px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #000084;
+    z-index: 1;
+}
+
+#welcome-content > h2 {
+    font-size : 50px;
+    color: #ffffff;
+    padding: 3vw;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+#welcome-content > b {
+    font-size : 20px;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#welcome-content > ul {
+    margin-bottom: 30px;
+}
+
+#welcome-content > ul > li{
+    font-size: 20px;
+    margin: 10px;
+    color: #ffffff;
+}
+
+#welcome-content > a {
+    width: 300px;
+    height: 60px;
+    background: #ffffff;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    color: #000084;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 60px;
+}
+
+#welcome-content > form > input.btn {
+    width: 300px;
+    height: 60px;
+    background: #ffffff;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    color: #000084;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 60px;
+    cursor: pointer;
+}

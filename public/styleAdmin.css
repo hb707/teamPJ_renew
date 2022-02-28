@@ -1,0 +1,160 @@
+td {
+    padding: 20px;
+}
+
+#admin-content {
+    /* height: 100vh; */
+    width: 100vw;
+    padding: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #000084;
+    z-index: 1;
+}
+
+#admin-content > h2 {
+    font-size : 50px;
+    color: #ffffff;
+    padding: 2vw;
+    margin: 5vh 0;
+    text-align: center;
+}
+
+.btn {
+    display: block;
+    width: 100px;
+    height: 40px;
+    background: #ffffff;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    color: #000084;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 40px;
+}
+
+#admin-content > form > table {
+    width: 70vw;
+    border-collapse: collapse;
+}
+
+.title .article {
+    display: flex;
+    justify-content: space-around;
+}
+
+.title > td {
+    padding: 20px 10px;
+    border-bottom: 2px solid #ffffff;
+    background-color: rgba(190, 190, 190, 0.3);
+    text-align: center;
+    color: #ffffff;
+}
+
+.article > td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ffffff;
+    color: #ffffff;
+}
+
+.check {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+}
+
+.idx {
+    width: 100px;
+    height: 30px;
+    text-align: center;
+}
+
+.subject {
+    width: 500px;
+    height: 30px;
+    padding-left: 20px ;
+}
+
+.subject > a {
+    color: #ffffff;
+}
+
+.nickname {
+    width: 120px;
+    height: 30px;
+    text-align: center;
+}
+
+.date {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+}
+
+.hit {
+    width: 100px;
+    height: 30px;
+    text-align: center;
+}
+
+
+
+
+/* User Admin */
+
+
+#admin-content > table {
+    width: 70vw;
+    border-collapse: collapse;
+}
+
+#userList > td {
+    text-align: center;
+    width: 150px;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
+
+.level {
+    color: #ffffff;
+}
+
+/* .select-active {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+} */
+
+.userId {
+    width: 150px;
+}
+
+.userName {
+    width: 150px;
+}
+
+.nickname {
+    width: 150px;
+}
+
+.level {
+    width: 60px;
+}
+
+.active {
+    width: 100px;
+}
+
+.select-active {
+    width: 200px;
+}
+
+.smallBtn {
+    width: 100px;
+    height: 30px;
+    text-align: center;
+}

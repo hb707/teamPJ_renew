@@ -1,0 +1,29 @@
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="admin-content">
+    <h2>관리자페이지</h2>
+    <form method="post" action="/admin/board">
+        <table>
+            <tr class="title">
+                <td class="check">삭제</td>
+                <td class="idx">글번호</td>
+                <td class="'subject">제목</td>
+                <td class="nickname">작성자</td>
+                <td class="date">작성일</td>
+                <td class="hit">조회수</td>
+            </tr>
+            {% for item in list%}
+            <tr class="article">
+                    <td class="check"><input type="checkbox" name="check{{item.idx}}"></td>
+                    <td class="idx">{{item.idx}}</td>
+                    <td class="subject"><a href="/board/view?idx={{item.idx}}">{{item.subject}}</a></td>
+                    <td class="nickname">{{item.nickname}}</td>
+                    <td class="date">{{item.date}}</td>
+                    <td class="hit">{{item.hit}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <input class="btn" type="submit" value="삭제하기">
+    </form>
+</div>
+{% endblock %}

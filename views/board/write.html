@@ -1,0 +1,24 @@
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="write-content">
+    <h2><a href="/board/list?p=0">게시판</a></h2>
+    <form method="post" action="/board/write">
+        <ul>
+            <li>
+                <p>제목</p>
+                <div id="subjectInput">
+                    <input type="text" name="subject">
+                </div>
+            </li>
+            <li></li>
+            <li>
+                <p>내용</p>
+                <textarea name="content" id="content" cols="50" rows="10"></textarea>
+            </li>
+            <li><input type="hidden" name="idx"></li>
+        </ul>
+        <!-- <input type="hidden" name="nickname" value="{{nickname}}"> -->
+        <input class="btn" type="submit" value="작성">
+    </form>
+</div>
+{% endblock %}

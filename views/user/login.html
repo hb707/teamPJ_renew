@@ -1,0 +1,13 @@
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="login-content">
+    <h2>로그인</h2>
+    <form method="post" action="/user/login">
+        <ul id="loginSpace">
+            <li><input type="text" name="userId" placeholder="아이디"></li>
+            <li><input type="password" name="userPw" placeholder="패스워드"></li>
+        </ul>
+        <input id="btn" type="submit" value="로그인">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="list-content">
+    <h2><a href="/board/list?p=1">게시판</a></h2>
+    <table>
+        <tr class="title">
+            <td class="idx">글번호 : {{item.idx}}</td>
+            <td class="'subject">제목 : {{item.subject}}</td>
+            <td class="viewNickname">글쓴이 : {{item.nickname}}</td>
+        </tr>
+    </table>
+    <div id="view">
+        <p>{{item.content}}</p>
+    </div>
+    <div id="btnDiv">
+        <a class="smallBtn" href="/board/list?p=1">목록가기</a>
+        {% if myContent %}
+        <a class="smallBtn" href="/board/update?idx={{item.idx}}">글 수정</a>
+        <a class="smallBtn" href="/board/delete?idx={{item.idx}}">글 삭제</a>
+        {% endif %}
+    </div>
+    
+</div>
+{% endblock %}

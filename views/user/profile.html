@@ -1,0 +1,18 @@
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="welcome-content">
+    <h2>프로필페이지</h2>
+    <ul>
+        <li>아이디 : {{item.userid}}</li>
+        <li>이름 : {{item.username}}</li>
+        <li>닉네임 : {{item.nickname}}</li>
+        <li>성별 : {{item.gender}}</li>
+        <li>핸드폰번호 : {{item.phoneNumber}}</li>
+    </ul>
+    <a href="/">메인으로 돌아가기</a>
+    <form method="post" action="/user/userDelete">
+        <input type="hidden" name="userid" value="{{item.userid}}">
+        <input class="btn" type="submit" value="회원탈퇴">
+    </form>
+</div>
+{% endblock %}

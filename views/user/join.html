@@ -1,0 +1,27 @@
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="join-content">
+    <h2>회원가입</h2>
+    <form method="POST" action="/user/join">
+        <ul id="join-menu">
+            <li><p>아이디</p><div class="menu-content"><input type="text" name="userId"></div></li>
+            <li><p>비밀번호</p><div class="menu-content"><input type="password" name="userPw"></div></li>
+            <li><p>비밀번호 재확인</p><div class="menu-content"><input type="password" name="checkPw"></div></li>
+            <li><p>이름</p><div class="menu-content"><input type="text" name="userName"></div></li>
+            <li><p>닉네임</p><div class="menu-content"><input type="text" name="nickname"></div></li>
+            <li><p>성별</p><div class="menu-content">
+                <select name="gender" id="select-gender">
+                    <option value selected>성별</option>
+                    <option value="M">남자</option>
+                    <option value="W">여자</option>
+                    <option value="U">선택 안함</option>
+                </select>
+            </div></li>
+            <li><p>핸드폰번호</p><div class="menu-content"><input type="text" name="phoneNumber"></div></li>
+            <input type="hidden" name="level" value=1>
+            <input type="hidden" name="active" value=1>
+        </ul>
+        <input id="btn" type="submit" value="가입하기">
+    </form>
+</div>
+{% endblock %}
