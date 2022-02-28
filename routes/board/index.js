@@ -5,7 +5,7 @@ const boardController = require('./boardController')
 router.get('/list', boardController.listGet)
 
 router.get('/view', boardController.viewGet)
-// router.post('/view', boardController.viewPost) -> 댓글용
+router.post('/view', boardController.viewPost)
 
 router.get('/write', boardController.writeGet)
 router.post('/write', boardController.writePost)

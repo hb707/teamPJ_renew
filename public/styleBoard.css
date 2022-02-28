@@ -130,6 +130,7 @@
 /* view 페이지 */
 #view {
     width: 70vw;
+    min-height: 50vh;
     border: 1px solid #ffffff;
     margin-top: 20px;
     padding: 30px;
@@ -163,9 +164,46 @@
     text-align: center;
 }
 
+#replyDiv {
+    margin-top: 80px;
+    width: 70vw;
+    min-height: 20vh;
+    border: 1px solid #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
 
+#replyDiv > form {
+    width: 65vw;
+    min-height: 10vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
 
+#replyDiv > form > #replyInput{
+    width: 55vw;
+    height: 6vh;
+    background: rgba(190, 190, 190, 0.3);
+    font-size: 20px;
+    border: none;
+    outline-style: none;
+    color: #ffffff;
+    padding: 7px 14px;
+}
 
+#replyDiv > form > #replyBtn{
+    width: 5vw;
+    height: 6vh;
+    background: #ffffff;
+    color: #000084;
+    font-size: 14px;
+    border-radius: 4px;
+    border: none;
+    outline-style: none;
+}
 
 
 /* write 페이지 */

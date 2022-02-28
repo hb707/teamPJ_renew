@@ -19,6 +19,35 @@
         <a class="smallBtn" href="/board/delete?idx={{item.idx}}">글 삭제</a>
         {% endif %}
     </div>
+    <div id="replyDiv">
+        <form method="post" action="/board/view?idx={{item.idx}}">
+            <input type="hidden" name="bidx" value="{{item.idx}}">
+            <input type="hidden" name="bid" value="{{item.nickname}}">
+            <input type="hidden" name="cid" value="{{curUserNickname}}">
+            <input id="replyInput" type="text" name="reply">
+            <input id="replyBtn" type="submit" value="댓글달기">
+        </form>
+        <div id="replylist">
+            <ul>
+                {% for reply in replydb %}
+                <li>
+                    <p>{{reply.cid}}</p>
+                    {% if reply.bid == reply.cid %}
+                    <p>작성자</p> 
+                    {% endif %}
+                    <p>{{reply.replydate}}</p>
+                    <p>{{reply.reply}}</p>
+                    <form method="post" action="/board/view?idx={{item.idx}}">
+                        <input type="hidden" name="bidx" value="{{item.idx}}">
+                        <input type="hidden" name="cidx" value="{{reply.cidx}}">
+                        <input type="submit" value="댓글추천">
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
     
 </div>
 {% endblock %}

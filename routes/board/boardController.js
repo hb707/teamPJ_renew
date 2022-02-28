@@ -35,20 +35,44 @@ const listGet = async (req, res) => {
 
 const viewGet = async (req, res) => {
     const index = req.query.idx
-    const nickname = req.session.currentUser.nickname
+    const curUserNickname = req.session.currentUser.nickname
     let myContent
     const sql = `select * from board WHERE idx=${index} ;`
     const sql2 = ` UPDATE board SET hit=hit+1 WHERE idx=${index}`
+    const getReplySql = `select * from replydb WHERE bidx=${index} ;`
     const conn = await pool.getConnection()
     try {
         const [result2] = await conn.query(sql2)
         const [result] = await conn.query(sql)
-        if (nickname === result[0].nickname) { myContent = 1 }
+        if (curUserNickname === result[0].nickname) { myContent = 1 }
         else { myContent = 0 }
-        res.render('board/view', { item: result[0], myContent })
+        const [replydb] = await conn.query(getReplySql)
+        res.render('board/view', { item: result[0], myContent, curUserNickname, replydb })
     }
     catch (error) {
         console.log('board view get 에러')
+        res.status(500).send('<h1>Internal Server Error</h1>')
+    }
+    finally { conn.release() }
+}
+
+// 작업중
+const viewPost = async (req, res) => {
+
+    const conn = await pool.getConnection()
+    try {
+        const replyObj = { ...req.body }
+        console.log(replyObj)
+        replyObj.bidx = parseInt(replyObj.bidx)
+        const sql = `INSERT INTO replydb(bidx,bid, cid, reply, replydate, replylike) values(?,?,?,?,now(),0) ;`
+        console.log('여기까진 OK')
+        const [result] = conn.query(sql, Object.values(replyObj))
+        // db에 추가도 되는데 왜 그 직후에 에러가 날까???
+        console.log('아마도 여기가 문제겠지')
+        res.redirect(`/board/view?idx=${replyObj.bidx}`)
+    }
+    catch (error) {
+        console.log('board view post 에러')
         res.status(500).send('<h1>Internal Server Error</h1>')
     }
     finally { conn.release() }
@@ -145,6 +169,7 @@ const updatePost = async (req, res) => {
 module.exports = {
     listGet,
     viewGet,
+    viewPost,
     writeGet,
     writePost,
     deleteGet,
