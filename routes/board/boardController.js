@@ -65,10 +65,7 @@ const viewPost = async (req, res) => {
         console.log(replyObj)
         replyObj.bidx = parseInt(replyObj.bidx)
         const sql = `INSERT INTO replydb(bidx,bid, cid, reply, replydate, replylike) values(?,?,?,?,now(),0) ;`
-        console.log('여기까진 OK')
-        const [result] = conn.query(sql, Object.values(replyObj))
-        // db에 추가도 되는데 왜 그 직후에 에러가 날까???
-        console.log('아마도 여기가 문제겠지')
+        const [result] = await conn.query(sql, Object.values(replyObj))
         res.redirect(`/board/view?idx=${replyObj.bidx}`)
     }
     catch (error) {
