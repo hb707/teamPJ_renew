@@ -1,8 +1,8 @@
 # 팀프로젝트 (https://github.com/hb707/teamPJ) 개선 작업
 
 ### 개선사항
-- 전체 코드를 pool.promise() 사용해 async,await로 코드 변경 (콜백헬 타파) ⭕️
-- DB 새로 짜기 ⭕️
+- 전체 코드를 pool.promise() 사용해 async,await로 코드 변경 (콜백헬 타파) 🔴
+- DB 새로 짜기 🔴
 - 댓글기능 추가 (CRUD, DB) ⭕️
 - 검색기능 추가
 - 스크랩기능 추가
@@ -11,7 +11,7 @@
 - ajax 이용해 아이디 중복체크, 댓글기능 만들기
 - 회원가입 페이지 프론트 수정
 - 최종 배포까지
-- 로그인 방식 JWT로 변경
+- 로그인 방식 JWT로 변경 🔴
 
 # 220228
 - user/board 각각 따로였던 db스키마, db.js 파일을 하나로 합치기 
@@ -26,4 +26,13 @@
 
 
 # 220302
-- 코드 다듬기
+- 코드 수정
+
+# 220303
+- 로그인 JWT 이용한 방식으로 변경.
+   - 로그인, 사용자인증, 로그아웃, 게시판 Write&View
+   - util 폴더에 jwt 파일 생성 : createJwt, verifyJWT, encoding, decoding, createSignature 함수
+   - auth, menuChange 미들웨어 -> middleware 폴더 생성 후 모듈화하여 분리, jwt 이용방식으로 변경.
+   - npm cookie-parser 이용
+   - 회원가입시 생성되는 user 객체는 세션 그대로 유지. + welcome 페이지 라우터로 넘어간 뒤에 바로 세션 삭제되도록
+- 댓글 CRUD

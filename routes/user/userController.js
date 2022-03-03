@@ -1,4 +1,5 @@
 const { alertmove } = require('../../util/alert')
+const { createJWT, decoding } = require('../../util/jwt')
 const pool = require('../../models/db').pool
 
 // GET user/login
@@ -17,8 +18,19 @@ const loginPost = async (req, res) => {
         // 일치하는 계정이 있다면 세션생성, 그렇지 않다면 alert 띄우기
         if (matchUser !== undefined) {
             delete matchUser.userpw
-            req.session.currentUser = { ...matchUser }
-            const nickname = req.session.currentUser.nickname
+
+            //req.session.currentUser = { ...matchUser }
+            // JWT로 변경
+            const payload = { ...matchUser }
+            const jwt = createJWT(payload)
+            const maxAge = 60 * 60 * 1000
+            const cookieOption = {
+                path: '/',
+                httpOnly: true,
+                maxAge: maxAge
+            }
+            res.cookie('AccessToken', jwt, cookieOption)
+            const nickname = matchUser.nickname
             res.send(alertmove('/', `${nickname}님, 로그인 되었습니다.`))
         }
         else { res.send(alertmove('/user/login', '아이디와 패스워드를 확인해주세요.')) }
@@ -91,7 +103,10 @@ const joinPost = async (req, res) => {
 
 // GET user/welcome
 const welcome = (req, res) => {
-    const user = req.session.joinUser
+    const user = { ...req.session.joinUser }
+    req.session.destroy(() => {
+        req.session;
+    });
     res.render('user/welcome', {
         item: user
     })
@@ -99,12 +114,14 @@ const welcome = (req, res) => {
 
 // GET user/profile
 const profile = async (req, res) => {
+    const { AccessToken } = req.cookies
+    const currentUser = decoding(AccessToken)
     const conn = await pool.getConnection();
     try {
-        if (req.session.currentUser === undefined) { res.send(alertmove('/user/login', '로그인 하신 후에 이용할 수 있습니다.')) }
+        if (currentUser === undefined) { res.send(alertmove('/user/login', '로그인 하신 후에 이용할 수 있습니다.')) }
         else {
-            const sessionId = req.session.currentUser.userid
-            const sql = `SELECT * FROM userdb WHERE (userid='${sessionId}')`
+            const currentId = currentUser.userid
+            const sql = `SELECT * FROM userdb WHERE (userid='${currentId}')`
             const [result] = await conn.query(sql)
             const item = { ...result[0] }
             res.render('user/profile', { item })
@@ -120,9 +137,7 @@ const profile = async (req, res) => {
 
 // Get user/logout
 const logout = (req, res) => {
-    req.session.destroy(() => {
-        req.session;
-    });
+    res.clearCookie('AccessToken', { path: '/' })
     res.redirect('/')
 }
 
@@ -133,7 +148,7 @@ const userDelete = async (req, res) => {
         const userId = req.body.userid
         const userDeleteSql = `delete from userdb where userid='${userId}';`
         const [result] = await conn.query(userDeleteSql)
-        req.session.destroy(() => { req.session.currentUser; });
+        res.clearCookie('AccessToken', { path: '/' })
         res.send(alertmove('/', '회원탈퇴가 완료되었습니다.'))
     }
     catch (err) {

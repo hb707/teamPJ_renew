@@ -1,5 +1,5 @@
 const pool = require('../../models/db').pool
-
+const { decoding } = require('../../util/jwt')
 
 
 const listGet = async (req, res) => {
@@ -35,7 +35,9 @@ const listGet = async (req, res) => {
 
 const viewGet = async (req, res) => {
     const index = req.query.idx
-    const curUserNickname = req.session.currentUser.nickname
+    const { AccessToken } = req.cookies
+    const currentUser = decoding(AccessToken)
+    const curUserNickname = currentUser.nickname
     let myContent
     const sql = `select * from board WHERE idx=${index} ;`
     const sql2 = ` UPDATE board SET hit=hit+1 WHERE idx=${index}`
@@ -83,7 +85,9 @@ const writeGet = async (req, res) => {
 
 const writePost = async (req, res) => {
     let { subject, content } = req.body
-    let nickname = req.session.currentUser.nickname
+    const { AccessToken } = req.cookies
+    const currentUser = decoding(AccessToken)
+    let nickname = currentUser.nickname
     let schemafields = [subject, content, nickname]
     let sql1 = `
         INSERT INTO board(subject,content,nickname,date,hit) values(?,?,?,now(),0) ;`
