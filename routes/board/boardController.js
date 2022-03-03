@@ -41,7 +41,7 @@ const viewGet = async (req, res) => {
     let myContent
     const sql = `select * from board WHERE idx=${index} ;`
     const sql2 = ` UPDATE board SET hit=hit+1 WHERE idx=${index}`
-    const getReplySql = `select * from replydb WHERE bidx=${index} ;`
+    const getReplySql = `select bidx, cidx, bid, cid, reply, DATE_FORMAT(replydate,'%Y-%m-%d') as replydate, replylike from replydb WHERE bidx=${index} order by cidx desc;`
     const conn = await pool.getConnection()
     try {
         const [result2] = await conn.query(sql2)
@@ -58,24 +58,7 @@ const viewGet = async (req, res) => {
     finally { conn.release() }
 }
 
-// 작업중
-const viewPost = async (req, res) => {
 
-    const conn = await pool.getConnection()
-    try {
-        const replyObj = { ...req.body }
-        console.log(replyObj)
-        replyObj.bidx = parseInt(replyObj.bidx)
-        const sql = `INSERT INTO replydb(bidx,bid, cid, reply, replydate, replylike) values(?,?,?,?,now(),0) ;`
-        const [result] = await conn.query(sql, Object.values(replyObj))
-        res.redirect(`/board/view?idx=${replyObj.bidx}`)
-    }
-    catch (error) {
-        console.log('board view post 에러')
-        res.status(500).send('<h1>Internal Server Error</h1>')
-    }
-    finally { conn.release() }
-}
 
 
 const writeGet = async (req, res) => {
@@ -170,7 +153,6 @@ const updatePost = async (req, res) => {
 module.exports = {
     listGet,
     viewGet,
-    viewPost,
     writeGet,
     writePost,
     deleteGet,

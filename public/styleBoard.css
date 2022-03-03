@@ -36,6 +36,7 @@
     margin-top: 20px;
     text-align: center;
     line-height: 40px;
+    cursor: pointer;
 }
 
 
@@ -156,6 +157,7 @@
     margin: 20px 30px 0 0;
     text-align: center;
     line-height: 30px;
+    cursor: pointer;
 }
 
 .viewNickname {
@@ -163,6 +165,10 @@
     height: 30px;
     text-align: center;
 }
+
+
+
+/* REPLY */
 
 #replyDiv {
     margin-top: 80px;
@@ -203,7 +209,82 @@
     border-radius: 4px;
     border: none;
     outline-style: none;
+    cursor: pointer;
 }
+
+#replylist {
+    width: 70vw;
+}
+
+#replylist > ul {
+    width: 60vw;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#replylist > ul > li {
+    width: 60vw;
+    padding: 15px;
+    border-bottom: 2px solid rgba(190, 190, 190, 0.3);
+}
+
+#replyInfo {
+    display: flex;
+    justify-content: space-between;
+    /* border-bottom: 2px solid rgba(190, 190, 190, 0.3); */
+    padding: 7px 0;
+    align-items: center;
+}
+
+#replyInfo > #replyInfoP > span{
+    padding: 10px;
+    color: #ffffff;
+}
+
+#replyInfo > #replyInfoP > span.writer{
+    font-size: 7px;
+    padding: 0 14px 0 0;
+}
+
+#replyForm {
+    display: flex;
+}
+
+#replyForm > a {
+    background: #ffffff;
+    color: #000084;
+    display: block;
+    padding: 4px;
+    border-radius: 5px;
+    margin: 0 5px;
+    font-size: 12px;
+}
+
+#replyForm > form > input {
+    background: #ffffff;
+    color: #000084;
+    display: block;
+    padding: 4px;
+    border-radius: 5px;
+    margin: 0 5px;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#replylist > ul > li > p{
+    color: #ffffff;
+    padding: 10px;
+}
+
+
+
+
+
+
+
 
 
 /* write 페이지 */

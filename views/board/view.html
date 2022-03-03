@@ -4,9 +4,10 @@
     <h2><a href="/board/list?p=1">게시판</a></h2>
     <table>
         <tr class="title">
-            <td class="idx">글번호 : {{item.idx}}</td>
-            <td class="'subject">제목 : {{item.subject}}</td>
-            <td class="viewNickname">글쓴이 : {{item.nickname}}</td>
+            <td class="idx">{{item.idx}}</td>
+            <td class="subject">{{item.subject}}</td>
+            <td class="viewNickname">{{item.nickname}}</td>
+            <td class="hit">조회수 : {{item.hit}}</td>
         </tr>
     </table>
     <div id="view">
@@ -20,7 +21,7 @@
         {% endif %}
     </div>
     <div id="replyDiv">
-        <form method="post" action="/board/view?idx={{item.idx}}">
+        <form method="post" action="/reply/write?idx={{item.idx}}">
             <input type="hidden" name="bidx" value="{{item.idx}}">
             <input type="hidden" name="bid" value="{{item.nickname}}">
             <input type="hidden" name="cid" value="{{curUserNickname}}">
@@ -31,17 +32,33 @@
             <ul>
                 {% for reply in replydb %}
                 <li>
-                    <p>{{reply.cid}}</p>
-                    {% if reply.bid == reply.cid %}
-                    <p>작성자</p> 
-                    {% endif %}
-                    <p>{{reply.replydate}}</p>
+                    <div id="replyInfo">
+                        <div id="replyInfoP">
+                            <span>{{reply.cid}}</span>
+                            {% if reply.bid == reply.cid %}
+                            <span class="writer">작성자</span> 
+                            {% endif %}
+                            <span>{{reply.replydate}}</span>
+                            <span>❤️ {{reply.replylike}}</span>
+                        </div>
+                        <div id="replyForm">
+                            <form method="post" action="/reply/like">
+                                <input type="hidden" name="bidx" value="{{reply.bidx}}">
+                                <input type="hidden" name="cidx" value="{{reply.cidx}}">
+                                <input type="hidden" name="replylike" value="{{reply.replylike}}">
+                                <input type="submit" value="❤️">
+                            </form>
+                            {% if reply.cid == curUserNickname %}
+                            <a href="/reply/edit?idx={{reply.bidx}}&r_idx={{reply.cidx}}">수정</a>
+                            <form method="post" action="/reply/delete">
+                                <input type="hidden" name="bidx" value="{{reply.bidx}}">
+                                <input type="hidden" name="cidx" value="{{reply.cidx}}">
+                                <input type="submit" value="삭제">
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
                     <p>{{reply.reply}}</p>
-                    <form method="post" action="/board/view?idx={{item.idx}}">
-                        <input type="hidden" name="bidx" value="{{item.idx}}">
-                        <input type="hidden" name="cidx" value="{{reply.cidx}}">
-                        <input type="submit" value="댓글추천">
-                    </form>
                 </li>
                 {% endfor %}
             </ul>

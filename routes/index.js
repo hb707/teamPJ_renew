@@ -3,6 +3,7 @@ const router = express.Router()
 const boardRouter = require('./board')
 const userRouter = require('./user')
 const adminRouter = require('./admin')
+const replyRouter = require('./reply')
 const { alertmove } = require('../util/alert')
 const { auth, authAdmin } = require('../middelware/auth')
 const { decoding } = require('../util/jwt')
@@ -20,6 +21,7 @@ router.get('/', (req, res) => {
 router.use('/user', userRouter)
 router.use('/board', auth, boardRouter)
 router.use('/admin', auth, authAdmin, adminRouter)
+router.use('/reply', replyRouter)
 
 module.exports = router
 

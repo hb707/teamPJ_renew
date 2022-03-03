@@ -36,3 +36,11 @@
    - npm cookie-parser 이용
    - 회원가입시 생성되는 user 객체는 세션 그대로 유지. + welcome 페이지 라우터로 넘어간 뒤에 바로 세션 삭제되도록
 - 댓글 CRUD
+    - reply 라우터 새로 만듦 : write, like, edit, delete
+    - write랑 like까지 라우터 완성
+    - 댓글 css
+
+### 해야할것
+- 0228 작업 중 오류 나는 곳 수정
+    - 삭제 시 DB의 인덱스 번호 고치는 쿼리문 공부하기
+    - 게시글 삭제 시에 replydb에 있는 해당 글의 댓글도 함께 삭제해주도록 처리해주기
