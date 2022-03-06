@@ -2,9 +2,19 @@
 {% block content %}
 <div id="join-content">
     <h2>회원가입</h2>
-    <form method="POST" action="/user/join">
+    <form method="POST" action="/user/join" id="joinForm">
         <ul id="join-menu">
-            <li><p>아이디</p><div class="menu-content"><input type="text" name="userId"></div></li>
+            <li><p>아이디</p><div class="menu-content"><input type="text" name="userId" id="userId"></div>
+                <!--  
+                <div class="menu-content">
+                    <form method="post" action="/user/idcheck" id="idCheckForm">
+                        <input type="text" name="userId" id="userId">
+                        <input type="submit" value="ID중복확인" id="idCheckBtn">
+                    </form>
+                </div>
+                <p id="idCheckMsg"></p>
+                -->
+            </li>
             <li><p>비밀번호</p><div class="menu-content"><input type="password" name="userPw"></div></li>
             <li><p>비밀번호 재확인</p><div class="menu-content"><input type="password" name="checkPw"></div></li>
             <li><p>이름</p><div class="menu-content"><input type="text" name="userName"></div></li>
@@ -24,4 +34,5 @@
         <input id="btn" type="submit" value="가입하기">
     </form>
 </div>
+<script type="text/javascript" src="../joinScript.js"></script>
 {% endblock %}

@@ -28,7 +28,6 @@ const likePost = async (req, res) => {
         replyObj.cidx = parseInt(replyObj.cidx)
         replyObj.replylike = parseInt(replyObj.replylike) + 1
         console.log(replyObj)
-        //const sql = `INSERT INTO replydb(replylike) values(${replyObj.replylike}) WHERE ;`
         const sql = `UPDATE replydb SET replylike=${replyObj.replylike} WHERE cidx=${replyObj.cidx}`
         const [result] = await conn.query(sql)
         // 조회수 -1 처리해주기 (댓글달고 리디렉션 할 때는 글 조회수 올라가지 않게)

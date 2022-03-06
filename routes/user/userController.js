@@ -74,26 +74,38 @@ const checkJoin = (joinFormObject) => {
 const joinPost = async (req, res) => {
     const conn = await pool.getConnection()
     try {
-        const joinFormObject = { ...req.body }
+        const joinFormObject = {
+            ...req.body,
+            level: parseInt(req.body.level),
+            active: parseInt(req.body.active)
+        }
+
         // 1. 입력 양식 적합 확인
         if (!checkJoin(joinFormObject)) {
             res.send(alertmove('/user/join', '입력내용을 확인해주세요'))
         }
-        // 2. 아이디 중복 확인
-        let IDconfirmSql = 'SELECT userid from userdb'
-        let [result] = await conn.query(IDconfirmSql)
-        const [idCheck] = result.filter(v => v.userid === joinFormObject.userId)
-        if (idCheck !== undefined) {
-            res.send(alertmove('/user/join', '이미 사용 중인 아이디입니다.'))
+        else {
+            // 2. 아이디 중복 확인
+            let IDconfirmSql = 'SELECT userid from userdb'
+            let [result] = await conn.query(IDconfirmSql)
+            const [idCheck] = result.filter(v => v.userid === joinFormObject.userId)
+            if (idCheck !== undefined) {
+                res.send(alertmove('/user/join', '이미 사용 중인 아이디입니다.'))
+            }
+            else {
+                // 3. userdb에 추가하기
+                delete joinFormObject.checkPw
+                let item = Object.values(joinFormObject)
+                let insertSql = `INSERT INTO userdb(userid,userpw,username,nickname,gender,phoneNumber,level,active) VALUES(?,?,?,?,?,?,?,?)`
+                const [result2] = await conn.query(insertSql, Object.values(joinFormObject))
+                req.session.joinUser = joinFormObject
+                res.send(alertmove('/user/welcome', `${joinFormObject.userId}님, 가입을 환영합니다.`))
+            }
         }
-        // 3. userdb에 추가하기
-        let insertSql = `INSERT INTO userdb(userid,userpw,username,nickname,gender,phoneNumber,level,active) VALUES('?','?','?','?','?','?','?','?')`
-        const [result2] = await conn.query(insertSql, Object.values(joinFormObject))
-        req.session.joinUser = joinFormObject
-        res.send(alertmove('/user/welcome', `${joinFormObject.userId}님, 가입을 환영합니다.`))
     }
     catch (error) {
         console.log('회원가입 에러')
+        console.log(error)
         res.status(500).send('<h1>Internal Server Error</h1>')
     }
     finally {
