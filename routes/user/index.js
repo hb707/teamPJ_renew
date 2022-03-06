@@ -17,4 +17,7 @@ router.get('/logout', userController.logout)
 
 router.post('/userDelete', userController.userDelete)
 
+// ajax처리 라우터
+router.post('/idCheck', userController.idCheck)
+
 module.exports = router

@@ -53,3 +53,7 @@
 
 # 220306
 - user/join 라우터 수정 : checkJoin 함수 수정 -> 정상작동
+- join 페이지에 id중복체크 ajax로 추가
+   - 이상하게 작동해서 찾아보니까 form 안에는 form을 쓰면 안된다고 한다. 한페이지에 form태그는 하나만 작동함.
+   - 이 부분을 form > input type="submit" 대신 그냥 button으로 하고 각각을 DOM으로 js에서 처리해줌
+   - ❗️input에서 id 입력하고 엔터키 누르면 keyup 이벤트로 중복체크 되도록 하고 싶었는데 바로 form태그 처리로 넘어감. 문제 해결 해주기

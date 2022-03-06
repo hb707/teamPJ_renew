@@ -4,16 +4,13 @@
     <h2>회원가입</h2>
     <form method="POST" action="/user/join" id="joinForm">
         <ul id="join-menu">
-            <li><p>아이디</p><div class="menu-content"><input type="text" name="userId" id="userId"></div>
-                <!--  
+            <li><p>아이디</p>
                 <div class="menu-content">
-                    <form method="post" action="/user/idcheck" id="idCheckForm">
-                        <input type="text" name="userId" id="userId">
-                        <input type="submit" value="ID중복확인" id="idCheckBtn">
-                    </form>
+                    <input type="text" name="userId" id="userId">
+                    <input type="button" value="ID중복확인" id="idCheckBtn">
                 </div>
                 <p id="idCheckMsg"></p>
-                -->
+                
             </li>
             <li><p>비밀번호</p><div class="menu-content"><input type="password" name="userPw"></div></li>
             <li><p>비밀번호 재확인</p><div class="menu-content"><input type="password" name="checkPw"></div></li>

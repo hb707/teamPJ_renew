@@ -27,6 +27,7 @@ let sessionObj = {
 
 app.use(session(sessionObj))
 app.use(express.urlencoded({ extended: true, }))
+app.use(express.json())
 app.use(express.static('public'))
 app.use(cookieParser())
 app.use(menuChange) // 모든 라우터에 checkLogin 인자 전달하는 미들웨어

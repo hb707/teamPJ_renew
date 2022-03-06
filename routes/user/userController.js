@@ -171,6 +171,41 @@ const userDelete = async (req, res) => {
 
 }
 
+
+
+
+
+
+// ajax Controller
+const idCheck = async (req, res) => {
+    const conn = await pool.getConnection()
+    try {
+        const { userid } = req.body
+        console.log(userid)
+        const Idsql = `select userid from userdb`
+        const [idList] = await conn.query(Idsql)
+        //console.log(result.filter(v => v.userid === userid))
+        const [matchObj] = idList.filter(v => v.userid === userid)
+        console.log(matchObj)
+        let usedId = 0
+        if (matchObj == undefined) {
+            usedId = 1
+        }
+        // 중복아이디가 있으면 0, 없으면 1
+        const response = { usedId }
+        //console.log(usedId)
+        //console.log(response)
+        res.send(JSON.stringify(response))
+    }
+    catch (err) {
+        console.log('ID 중복체크 에러')
+        res.status(500).send('<h1>Internal Server Error</h1>')
+    }
+    finally { conn.release() }
+}
+
+
+
 module.exports = {
     loginGet,
     loginPost,
@@ -180,4 +215,5 @@ module.exports = {
     profile,
     logout,
     userDelete,
+    idCheck
 }
