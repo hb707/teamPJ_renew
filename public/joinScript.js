@@ -28,7 +28,6 @@ function clickHandler(e) {
         try {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 const { usedId } = JSON.parse(xhr.response)
-                console.log(usedId)
                 // 중복아이디가 있으면 , 없으면 0
                 if (usedId) {
                     msg.innerHTML = '사용가능한 ID입니다'
