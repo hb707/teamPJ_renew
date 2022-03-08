@@ -93,17 +93,22 @@ const deleteGet = async (req, res) => {
     const index = req.query.idx
     const conn = await pool.getConnection()
     try {
-        // sql 문법 해석... 그리고 오류 나는 이유 뭐때문인지 ㅠㅠ
-        let sql = `
-            DELETE from board WHERE idx=${index} ; 
-            ALTER TABLE board AUTO_INCREMENT=1 ; 
-            SET @COUNT = 0 ; 
-            UPDATE board SET idx = @COUNT:=@COUNT+1;
-        `
-        const [result] = await conn.query(sql)
+
+        let deleteSql1 = `DELETE from board WHERE idx=${index};`
+        let deleteSql2 = `ALTER TABLE board AUTO_INCREMENT=1;`
+        let deleteSql3 = `SET @COUNT = 0;`
+        let deleteSql4 = `UPDATE board SET idx = @COUNT:=@COUNT+1;`
+
+        const [result1] = await conn.query(deleteSql1)
+        const [result2] = await conn.query(deleteSql2)
+        const [result3] = await conn.query(deleteSql3)
+        const [result4] = await conn.query(deleteSql4)
+
+
         res.redirect(`/board/list?p=1`)
     }
     catch (error) {
+        console.log(error)
         console.log('board delete 에러')
         res.status(500).send('<h1>Internal Server Error</h1>')
     }
@@ -159,3 +164,4 @@ module.exports = {
     updateGet,
     updatePost
 }
+

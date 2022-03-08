@@ -56,14 +56,17 @@ const adminBoardPost = async (req, res) => {
     try {
         if (idxStr === '') { res.send(alertmove('/admin/board', '삭제할 게시글을 선택해주세요')) }
         else {
-            const sql = `
-                DELETE from board WHERE idx in (${idxStr}); 
-                ALTER TABLE board AUTO_INCREMENT=1 ; 
-                SET @COUNT = 0 ; 
-                UPDATE board SET idx = @COUNT:=@COUNT+1;
-            `
-            const [result] = await conn.query(sql)
-            res.render('admin/adminBoard', { list: result })
+            let deleteSql1 = `DELETE from board WHERE idx in (${idxStr});`
+            let deleteSql2 = `ALTER TABLE board AUTO_INCREMENT=1;`
+            let deleteSql3 = `SET @COUNT = 0;`
+            let deleteSql4 = `UPDATE board SET idx = @COUNT:=@COUNT+1;`
+
+            const [result1] = await conn.query(deleteSql1)
+            const [result2] = await conn.query(deleteSql2)
+            const [result3] = await conn.query(deleteSql3)
+            const [result4] = await conn.query(deleteSql4)
+
+            res.redirect('/admin/board')
         }
     }
     catch (error) {
