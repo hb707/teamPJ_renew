@@ -49,8 +49,11 @@ const adminBoardPost = async (req, res) => {
     let select = req.body;
     let keylist = Object.keys(select);
     let idxStr = ""
-    const boardOutIdx = keylist.forEach(v => idxStr = idxStr + v.slice(5,) + ',')
+
+    keylist.forEach(v => { idxStr = idxStr + v.slice(5,) + ','; })
+
     idxStr = idxStr.slice(0, -1);
+    let idxArr = idxStr.split(',')
 
     const conn = await pool.getConnection()
     try {
@@ -65,6 +68,23 @@ const adminBoardPost = async (req, res) => {
             const [result2] = await conn.query(deleteSql2)
             const [result3] = await conn.query(deleteSql3)
             const [result4] = await conn.query(deleteSql4)
+
+            console.log(idxArr)
+
+            for (let i = 0; i < idxArr.length; i++) {
+                let idx = parseInt(idxArr[i])
+                let replyDeleteSql1 = `DELETE from replydb WHERE bidx=${idx};`
+                let replyDeleteSql2 = `update replydb set bidx=bidx-1 where bidx>${idx};`
+                let replyDeleteSql3 = `ALTER TABLE replydb AUTO_INCREMENT=1;`
+                let replyDeleteSql4 = `SET @COUNTR = 0;`
+                let replyDeleteSql5 = `UPDATE replydb SET cidx = @COUNTR:=@COUNTR+1;`
+                const [replyResult1] = await conn.execute(replyDeleteSql1)
+                const [replyResult2] = await conn.execute(replyDeleteSql2)
+                const [replyResult3] = await conn.execute(replyDeleteSql3)
+                const [replyResult4] = await conn.execute(replyDeleteSql4)
+                const [replyResult5] = await conn.execute(replyDeleteSql5)
+            }
+
 
             res.redirect('/admin/board')
         }

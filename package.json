@@ -4,10 +4,14 @@
         "dotenv": "^16.0.0",
         "express": "^4.17.3",
         "express-session": "^1.17.2",
+        "jsonwebtoken": "^8.5.1",
         "memorystore": "^1.6.7",
         "mysql": "^2.18.1",
         "mysql2": "^2.3.3",
-        "nunjucks": "^3.2.3"
+        "nunjucks": "^3.2.3",
+        "passport": "^0.5.2",
+        "passport-facebook": "^3.0.0",
+        "passport-jwt": "^4.0.0"
     },
     "name": "teampj",
     "description": "## user - userId - userPw - userName - nickname - birth - gender - number - phoneNumber - level: 1,2,3으로 나눠짐 - active: 1(활동상태), 0(활동정지)",

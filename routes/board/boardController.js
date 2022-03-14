@@ -93,7 +93,7 @@ const deleteGet = async (req, res) => {
     const index = req.query.idx
     const conn = await pool.getConnection()
     try {
-
+        // 게시글 삭제하고 인덱스 정렬
         let deleteSql1 = `DELETE from board WHERE idx=${index};`
         let deleteSql2 = `ALTER TABLE board AUTO_INCREMENT=1;`
         let deleteSql3 = `SET @COUNT = 0;`
@@ -104,6 +104,20 @@ const deleteGet = async (req, res) => {
         const [result3] = await conn.query(deleteSql3)
         const [result4] = await conn.query(deleteSql4)
 
+        // 댓글 삭제하고 바뀐 게시글 인덱스로 수정🔥
+        let replyDeleteSql1 = `DELETE from replydb WHERE bidx=${index};`
+        let replyDeleteSql2 = `update replydb set bidx=bidx-1 where bidx>${index};`
+        let replyDeleteSql3 = `ALTER TABLE replydb AUTO_INCREMENT=1;`
+        let replyDeleteSql4 = `SET @COUNTR = 0;`
+        let replyDeleteSql5 = `UPDATE replydb SET cidx = @COUNTR:=@COUNTR+1;`
+        const [replyResult1] = await conn.execute(replyDeleteSql1)
+        const [replyResult2] = await conn.execute(replyDeleteSql2)
+        const [replyResult3] = await conn.execute(replyDeleteSql3)
+        const [replyResult4] = await conn.execute(replyDeleteSql4)
+        const [replyResult5] = await conn.execute(replyDeleteSql5)
+
+
+        console.log(replyDeleteSql1)
 
         res.redirect(`/board/list?p=1`)
     }

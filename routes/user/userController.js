@@ -11,7 +11,8 @@ const loginGet = (req, res) => {
 const loginPost = async (req, res) => {
     const conn = await pool.getConnection()
     try {
-        const { userId, userPw } = req.body
+        const userId = req.body.username
+        const userPw = req.body.password
         let CheckIdSql = `select userid, userpw, nickname, level, active from userdb`
         const [result] = await conn.query(CheckIdSql)
         const [matchUser] = result.filter(v => v.userid === userId && v.userpw === userPw)
@@ -41,6 +42,19 @@ const loginPost = async (req, res) => {
     }
     finally { conn.release() }
 }
+
+const loginFacebookGet = (req, res) => {
+    console.log("이거실행")
+    const maxAge = 60 * 60 * 1000
+    const cookieOption = {
+        path: '/',
+        httpOnly: true,
+        maxAge: maxAge
+    }
+    res.cookie('AccessToken', req.user.myToken, cookieOption)
+}
+
+
 
 // GET user/join
 const joinGet = (req, res) => {
@@ -204,6 +218,7 @@ const idCheck = async (req, res) => {
 module.exports = {
     loginGet,
     loginPost,
+    loginFacebookGet,
     joinGet,
     joinPost,
     welcome,
