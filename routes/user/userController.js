@@ -11,8 +11,8 @@ const loginGet = (req, res) => {
 const loginPost = async (req, res) => {
     const conn = await pool.getConnection()
     try {
-        const userId = req.body.username
-        const userPw = req.body.password
+        const userId = req.body.userId
+        const userPw = req.body.userPw
         let CheckIdSql = `select userid, userpw, nickname, level, active from userdb`
         const [result] = await conn.query(CheckIdSql)
         const [matchUser] = result.filter(v => v.userid === userId && v.userpw === userPw)

@@ -4,6 +4,7 @@ const boardRouter = require('./board')
 const userRouter = require('./user')
 const adminRouter = require('./admin')
 const replyRouter = require('./reply')
+const apiRouter = require('./api')
 const { alertmove } = require('../util/alert')
 const { auth, authAdmin } = require('../middelware/auth')
 const { decoding } = require('../util/jwt')
@@ -22,6 +23,7 @@ router.use('/user', userRouter)
 router.use('/board', auth, boardRouter)
 router.use('/admin', auth, authAdmin, adminRouter)
 router.use('/reply', replyRouter)
+router.use('/api', apiRouter)
 
 module.exports = router
 

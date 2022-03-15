@@ -2,36 +2,40 @@ const pool = require('../../models/db').pool
 const { decoding } = require('../../util/jwt')
 
 
-const listGet = async (req, res) => {
-    // 페이징 정리
-    const pagenum = req.query.p
-    const conn = await pool.getConnection()
-    try {
-        const sql = `select idx,subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d') as date,hit from board order by idx desc
-        Limit ${(pagenum - 1) * 5},5`
-        const [result] = await conn.query(sql)
-        let page = pagenum
-        let view_article = 10;
-        let total_record = result.length;
-        let total_pages = Math.ceil(total_record / view_article)
-        let block_article = 10;
-        let blocks = Math.ceil(total_pages / block_article)
-        let current_block = Math.ceil(page / block_article)
-        let pages = []
-        for (let i = 1; i <= view_article; i++) {
-            pages.push((current_block - 1) * view_article + (i))
-        }
-        res.render(`board/list`, {
-            list: result,
-            pages,
-        })
-    }
-    catch (error) {
-        console.log('board list get 에러')
-        res.status(500).send('<h1>Internal Server Error</h1>')
-    }
-    finally { conn.release() }
+const listGet = (req, res) => {
+    res.render('board/list')
 }
+
+// const listGet = async (req, res) => {
+//     // 페이징 정리
+//     const pagenum = req.query.p
+//     const conn = await pool.getConnection()
+//     try {
+//         const sql = `select idx,subject,nickname,content,DATE_FORMAT(date,'%Y-%m-%d') as date,hit from board order by idx desc
+//         Limit ${(pagenum - 1) * 5},5`
+//         const [result] = await conn.query(sql)
+//         let page = pagenum
+//         let view_article = 10;
+//         let total_record = result.length;
+//         let total_pages = Math.ceil(total_record / view_article)
+//         let block_article = 10;
+//         let blocks = Math.ceil(total_pages / block_article)
+//         let current_block = Math.ceil(page / block_article)
+//         let pages = []
+//         for (let i = 1; i <= view_article; i++) {
+//             pages.push((current_block - 1) * view_article + (i))
+//         }
+//         res.render(`board/list`, {
+//             list: result,
+//             pages,
+//         })
+//     }
+//     catch (error) {
+//         console.log('board list get 에러')
+//         res.status(500).send('<h1>Internal Server Error</h1>')
+//     }
+//     finally { conn.release() }
+// }
 
 const viewGet = async (req, res) => {
     const index = req.query.idx

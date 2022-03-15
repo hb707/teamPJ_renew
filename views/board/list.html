@@ -3,33 +3,47 @@
 <div id="list-content">
     <h2><a href="/board/list?p=1">게시판</a></h2>
     <table>
-        <tr class="title">
-            <td class="idx">글번호</td>
-            <td class="'subject">제목</td>
-            <td class="nickname">작성자</td>
-            <td class="date">작성일</td>
-            <td class="hit">조회수</td>
-        </tr>
-        {% for item in list%}
-        <tr class="article">
-            <td class="idx">{{item.idx}}</td>
-            <td class="subject"><a href="/board/view?idx={{item.idx}}">{{item.subject}}</a></td>
-            <td class="nickname">{{item.nickname}}</td>
-            <td class="date">{{item.date}}</td>
-            <td class="hit">{{item.hit}}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <tr class="title">
+                <td class="idx">글번호</td>
+                <td class="'subject">제목</td>
+                <td class="nickname">작성자</td>
+                <td class="date">작성일</td>
+                <td class="hit">조회수</td>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- template : boardList -->
+        </tbody>
     </table>
-    
-
-
-    <ul id="page">
-        <!-- i=total_record i<total_record - view_article i -->
-        {% for page in pages%}
-        <li><a href="/board/list?p={{page}}">{{page}}</a></li>
-        {% endfor %}
-    </ul>
+    <div id="btnDiv">
+        <button id="prevBtn">👈</button>
+        <div id="pageBtnDiv">
+            <!-- template : pageList -->
+        </div>
+        <button id="nextBtn">👉</button>
+    </div>
     <a class='btn' href="/board/write">글쓰기</a>
 </div>
+
+<template id="boardList">
+    <tr class="article">
+        <td class="idx">{idx}</td>
+        <td class="subject"><a href="/board/view?idx={idx}">{subject}</a></td>
+        <td class="nickname">{nickname}</td>
+        <td class="date">{date}</td>
+        <td class="hit">{hit}</td>
+    </tr>
+</template>
+
+<template id="pageList">
+    <button class="pNum">{pNum}</button>
+</template>
+
+<script src="../api/boardList.js" type="text/javascript"></script>
 {% endblock %}
+
+
+
+
 
