@@ -35,7 +35,10 @@ async function init() {
         }
         const pageArr = document.querySelectorAll('.pNum')
         pageArr.forEach((v, i) => {
-            v.addEventListener('click', () => { currentPage = v.innerHTML; ListEvent(currentPage) })
+            v.addEventListener('click', () => {
+                currentPage = v.innerHTML;
+                ListEvent(currentPage)
+            })
         })
     }
 
@@ -66,11 +69,13 @@ async function init() {
 
     nextBtn.addEventListener('click', () => {
         currentBlock += 1
+        if (currentBlock > totalBlock) { currentBlock = totalBlock }
         BtnDivEvent(currentBlock)
     })
 
     prevBtn.addEventListener('click', () => {
         currentBlock -= 1
+        if (currentBlock < 1) { currentBlock = 1 }
         BtnDivEvent(currentBlock)
     })
 

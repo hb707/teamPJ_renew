@@ -24,6 +24,11 @@ router.use('/board', auth, boardRouter)
 router.use('/admin', auth, authAdmin, adminRouter)
 router.use('/reply', replyRouter)
 router.use('/api', apiRouter)
+// chat 라우터 추가
+router.get('/chat', auth, (req, res) => {
+    console.log(req.user)
+    res.render('chat/chat.html')
+})
 
 module.exports = router
 

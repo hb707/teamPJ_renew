@@ -14,6 +14,7 @@ const auth = (req, res, next) => {
         const currentUser = decoding(AccessToken)
         if (currentUser.active !== 1) { console.log('사용중지된 계정입니다.'); throw new Error('Active error') }
 
+        req.user = currentUser
         next()
     }
     catch (e) { console.log(e); throw e }

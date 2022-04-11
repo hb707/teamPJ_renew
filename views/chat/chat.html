@@ -1,0 +1,16 @@
+{% extends "./_layout.html" %}
+{% block content %}
+<div id="chatDiv">
+    <div id="chatContent">
+        <ul>
+            <li><span id="username">한빈</span><span>채팅내용</span></li>
+        </ul>
+    </div>
+    <div id="chatInput">
+        <form action="/api/chat" method="post">
+            <input type="hidden" id="nickname" value="{{nickname}}">
+            <input type="text" name="msg" id="msg">
+        </form>
+    </div>
+</div>
+{% endblock %}
